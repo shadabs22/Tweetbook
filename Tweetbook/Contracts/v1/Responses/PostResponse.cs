@@ -7,6 +7,6 @@ namespace Tweetbook.Contracts.v1.Responses
 {
     public class PostResponse
     {
-        public string id { get; set; }
+        public Guid id { get; set; }
     }
 }

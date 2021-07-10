@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Tweetbook.Contracts.v1.Requests
 {
-    public class CreatePostRequest
+    public class UpdatePostRequest
     {
-        public string name { get; set; }
+        public string  name { get; set; }
     }
 }

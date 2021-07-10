@@ -7,6 +7,7 @@ namespace Tweetbook.Domain.v1
 {
     public class Post
     {
-        public string id { get; set; }
+        public Guid id { get; set; }
+        public string name { get; set; }
     }
 }
