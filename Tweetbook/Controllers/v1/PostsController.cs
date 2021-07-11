@@ -12,7 +12,6 @@ using Tweetbook.Services;
 namespace Tweetbook.Controllers.v1
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostsController : ControllerBase
