@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +50,20 @@ namespace Tweetbook.Services
             _dataContext.Posts.Remove(post);
             var deleted = await _dataContext.SaveChangesAsync();
             return deleted > 0;
+        }
+
+        public async Task<bool> UserOwnPostAsync(Guid postId, string userId)
+        {
+            var post = await _dataContext.Posts.AsNoTracking().SingleOrDefaultAsync(x => x.id == postId);
+            if (post == null)
+            {
+                return false;
+            }
+            if (post.UserId != userId)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
