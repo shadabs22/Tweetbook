@@ -27,6 +27,7 @@ namespace Tweetbook.Contracts.v1
         {
             public const string Login = "/api/v1/identity/login";
             public const string Register = "/api/v1/identity/register";
+            public const string Refresh = "/api/v1/identity/Refresh";
         }
     }
 }

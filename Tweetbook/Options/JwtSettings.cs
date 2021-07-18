@@ -8,5 +8,6 @@ namespace Tweetbook.Options
     public class JwtSettings
     {
         public string Secrete { get; set; }
+        public TimeSpan TokenLifetime { get; set; }
     }
 }
