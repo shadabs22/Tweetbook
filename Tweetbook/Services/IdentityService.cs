@@ -136,11 +136,16 @@ namespace Tweetbook.Services
             }
             var newUser = new IdentityUser
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = email,
                 UserName = email
             };
 
+
             var createUser = await _userManager.CreateAsync(newUser, password);
+
+            await _userManager.AddClaimAsync(newUser, new Claim("tags.view", "true"));
+
             if (!createUser.Succeeded)
             {
                 return new AuthenticationResult
@@ -155,15 +160,26 @@ namespace Tweetbook.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secrete);
-            var tokenDescriptor = new SecurityTokenDescriptor
+
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(new[]
-                {
                     new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim("id", user.Id)
-                }),
+            };
+
+            var userClaims = await _userManager.GetClaimsAsync(user);
+            claims.AddRange(userClaims);
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+            if (userRoles?.Count > 0)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRoles[0]));
+            }
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.Add(_jwtSettings.TokenLifetime),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

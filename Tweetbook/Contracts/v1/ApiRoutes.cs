@@ -23,6 +23,15 @@ namespace Tweetbook.Contracts.v1
             public const string Create = "/api/v1/posts";
         }
 
+        public static class Tags
+        {
+            public const string GetAll = "/api/v1/tags";
+            public const string Get = "/api/v1/tags/{tagId}";
+            public const string Update = "/api/v1/tags/{tagId}";
+            public const string Delete = "/api/v1/tags/{postId}";
+            public const string Create = "/api/v1/tags";
+        }
+
         public static class Identity
         {
             public const string Login = "/api/v1/identity/login";

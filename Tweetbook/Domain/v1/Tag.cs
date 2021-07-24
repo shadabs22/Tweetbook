@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Tweetbook.Domain.v1
 {
-    public class Post
+    public class Tag
     {
         public Guid id { get; set; }
-        public string name { get; set; }
+        public string text { get; set; }
+        public Guid postid { get; set; }
+        public string userid { get; set; }
 
-        public List<Tag> tags { get; set; }
+        [ForeignKey(nameof(postid))]
+        public Post post { get; set; }
 
-        public string UserId { get; set; }
-
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey(nameof(userid))]
         public IdentityUser User { get; set; }
     }
 }

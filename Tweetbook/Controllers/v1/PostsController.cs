@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Tweetbook.Contracts.v1;
 using Tweetbook.Contracts.v1.Requests;
@@ -18,10 +20,12 @@ namespace Tweetbook.Controllers.v1
     public class PostsController : ControllerBase
     {
         private readonly IPostService _postService;
+        private readonly ITagService _tagService;
 
-        public PostsController(IPostService postService)
+        public PostsController(IPostService postService, ITagService tagService)
         {
             _postService = postService;
+            _tagService = tagService;
         }
 
         [HttpGet(ApiRoutes.Posts.GetAll)]
@@ -81,6 +85,9 @@ namespace Tweetbook.Controllers.v1
                 post.id = Guid.NewGuid();
             }
             await _postService.CreatePost(post);
+            //createPost.tags.ForEach(x => { x.postid = post.id; x.userid = HttpContext.GetUserId(); });
+            List<Tag> newTagList = createPost.tags.Select(x => new Tag { id=Guid.NewGuid(),text=x.text, postid = post.id, userid = HttpContext.GetUserId() }).ToList();
+            await _tagService.CreateTags(newTagList);
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Posts.Get.Replace("{postId}", post.id.ToString());
             var postResponse = new PostResponse() { id = post.id };
