@@ -7,6 +7,8 @@ using System.Text;
 using Tweetbook.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using Tweetbook.Authorizations.abcdDomainAuthorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tweetbook.Installers
 {
@@ -47,7 +49,13 @@ namespace Tweetbook.Installers
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("TagViewer", builder => builder.RequireClaim("tags.view", "true"));
+                options.AddPolicy("MustWorkForABCD.COM", policy =>
+                {
+                    policy.AddRequirements(new WorksForCompanyRequirement("abcd.com"));
+                });
             });
+
+            services.AddSingleton<IAuthorizationHandler, WorksForCompanyHandler>();
 
             services.AddSwaggerGen(x =>
             {

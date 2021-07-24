@@ -11,7 +11,7 @@ using Tweetbook.Services;
 
 namespace Tweetbook.Controllers.v1
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Policy = "MustWorkForABCD.COM")]
     [Route("api/[controller]")]
     [ApiController]
     public class TagsController : ControllerBase
@@ -31,6 +31,7 @@ namespace Tweetbook.Controllers.v1
         }
 
         //[Authorize(Policy = "TagViewer")]
+        //[Authorize(Policy = "MustWorkForABCD.COM")]
         [Authorize(Roles = "Admin")]
         [HttpGet(ApiRoutes.Tags.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid tagId)
