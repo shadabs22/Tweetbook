@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tweetbook.Contracts.v1;
+using Tweetbook.Contracts.v1.Responses;
 using Tweetbook.Services;
 
 namespace Tweetbook.Controllers.v1
@@ -17,17 +19,20 @@ namespace Tweetbook.Controllers.v1
     public class TagsController : ControllerBase
     {
         private readonly ITagService _tagService;
+        private readonly IMapper _mapper;
 
-        public TagsController(ITagService tagService)
+        public TagsController(ITagService tagService, IMapper mapper)
         {
             _tagService = tagService;
+            _mapper = mapper;
         }
 
-        [Authorize(Policy = "TagViewer", Roles ="Poster")]
+        //[Authorize(Policy = "TagViewer", Roles ="Poster")]
         [HttpGet(ApiRoutes.Tags.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(_tagService.GetTags());
+            var tags = await _tagService.GetTags();
+            return Ok(_mapper.Map<List<TagResponse>>(tags));
         }
 
         //[Authorize(Policy = "TagViewer")]
@@ -36,11 +41,11 @@ namespace Tweetbook.Controllers.v1
         [HttpGet(ApiRoutes.Tags.Get)]
         public async Task<IActionResult> Get([FromRoute] Guid tagId)
         {
-            var tag = _tagService.GetTagById(tagId);
+            var tag = await _tagService.GetTagById(tagId);
             if (tag == null)
                 return NotFound();
 
-            return Ok(tag);
+            return Ok(_mapper.Map<TagResponse>(tag));
         }
 
     }

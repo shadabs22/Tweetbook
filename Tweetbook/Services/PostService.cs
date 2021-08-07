@@ -19,7 +19,7 @@ namespace Tweetbook.Services
 
         public async Task<List<Post>> GetPosts()
         {
-            return _dataContext.Posts.ToList();
+            return _dataContext.Posts.Include(x => x.tags).ToList();
         }
 
         public async Task<Post> GetPostById(Guid postId)
