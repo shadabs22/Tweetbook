@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tweetbook.Contracts.v1;
+using Tweetbook.Contracts.v1.Requests;
 using Tweetbook.Contracts.v1.Responses;
 using Tweetbook.Services;
 
@@ -27,7 +28,7 @@ namespace Tweetbook.Controllers.v1
             _mapper = mapper;
         }
 
-        //[Authorize(Policy = "TagViewer", Roles ="Poster")]
+        [Authorize(Policy = "TagViewer", Roles ="Poster")]
         [HttpGet(ApiRoutes.Tags.GetAll)]
         public async Task<IActionResult> GetAll()
         {
@@ -46,6 +47,12 @@ namespace Tweetbook.Controllers.v1
                 return NotFound();
 
             return Ok(_mapper.Map<TagResponse>(tag));
+        }
+
+        [HttpPost(ApiRoutes.Tags.Create)]
+        public async Task<IActionResult> Create([FromBody]TagPostRequest request)
+        {
+            return Ok();
         }
 
     }

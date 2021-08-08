@@ -9,6 +9,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
 using Tweetbook.Authorizations.abcdDomainAuthorization;
 using Microsoft.AspNetCore.Authorization;
+using FluentValidation.AspNetCore;
+using Tweetbook.Filters;
 
 namespace Tweetbook.Installers
 {
@@ -19,7 +21,19 @@ namespace Tweetbook.Installers
             var jwtsettings = new JwtSettings();
             configuration.Bind(nameof(jwtsettings), jwtsettings);
             services.AddSingleton(jwtsettings);
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                //options.EnableEndpointRouting = false;
+                //options.Filters.Add<ValidationFilter>();
+                options.Filters.Add(typeof(ValidationFilter));
+            })
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    fv.DisableDataAnnotationsValidation = true;
+                    //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = true;  
+                    //fv.ImplicitlyValidateChildProperties = true;  
+                });
 
             var tokenValidationParameters = new TokenValidationParameters()
             {
@@ -60,7 +74,7 @@ namespace Tweetbook.Installers
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Tweetbook API", Version = "v1" });
-                
+
                 x.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
