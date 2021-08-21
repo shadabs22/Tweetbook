@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tweetbook", "Tweetbook\Tweetbook.csproj", "{19A3DC15-004B-43CD-B82A-013876D9552E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweetbook.IntegrationTests", "Tweetbook.IntegrationTests\Tweetbook.IntegrationTests.csproj", "{EB9E4009-DE3B-485E-82C5-1255B86D9486}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tweetbook.IntegrationTests", "Tweetbook.IntegrationTests\Tweetbook.IntegrationTests.csproj", "{EB9E4009-DE3B-485E-82C5-1255B86D9486}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweetbook.Contracts", "Tweetbook.Contracts\Tweetbook.Contracts.csproj", "{AA791EBA-618A-4880-B463-B2AE56F0240C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweetbook.Sdk", "Tweetbook.Sdk\Tweetbook.Sdk.csproj", "{92775A18-A220-4596-A305-0662D053098C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tweetbook.Sdk.Sample", "Tweetbook.Sdk.Sample\Tweetbook.Sdk.Sample.csproj", "{B1ED93F8-4083-4339-9845-8B9D1F322E62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{EB9E4009-DE3B-485E-82C5-1255B86D9486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB9E4009-DE3B-485E-82C5-1255B86D9486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB9E4009-DE3B-485E-82C5-1255B86D9486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA791EBA-618A-4880-B463-B2AE56F0240C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA791EBA-618A-4880-B463-B2AE56F0240C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA791EBA-618A-4880-B463-B2AE56F0240C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA791EBA-618A-4880-B463-B2AE56F0240C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92775A18-A220-4596-A305-0662D053098C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92775A18-A220-4596-A305-0662D053098C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92775A18-A220-4596-A305-0662D053098C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92775A18-A220-4596-A305-0662D053098C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1ED93F8-4083-4339-9845-8B9D1F322E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1ED93F8-4083-4339-9845-8B9D1F322E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1ED93F8-4083-4339-9845-8B9D1F322E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1ED93F8-4083-4339-9845-8B9D1F322E62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
