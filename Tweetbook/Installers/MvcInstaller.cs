@@ -25,7 +25,7 @@ namespace Tweetbook.Installers
             {
                 //options.EnableEndpointRouting = false;
                 //options.Filters.Add<ValidationFilter>();
-                options.Filters.Add(typeof(ValidationFilter));
+                //options.Filters.Add(typeof(ValidationFilter));
             })
                 .AddFluentValidation(fv =>
                 {

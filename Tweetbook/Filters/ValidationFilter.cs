@@ -8,7 +8,7 @@ using Tweetbook.Contracts.v1.Requests;
 
 namespace Tweetbook.Filters
 {
-    public class ValidationFilter :    IActionFilter // IAsyncActionFilter
+    public class ValidationFilter //:    IActionFilter // IAsyncActionFilter
     {
         public void OnActionExecuted(ActionExecutedContext context)
         {
